@@ -399,6 +399,7 @@
 				A1E1DC4F19657B6C008B6BBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A1E1DC5019657B6C008B6BBC /* Build configuration list for PBXNativeTarget "CoinPushTests" */ = {
 			isa = XCConfigurationList;
@@ -407,6 +408,7 @@
 				A1E1DC5219657B6C008B6BBC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -11,7 +11,8 @@ import QuartzCore
 import SceneKit
 
 
-func join(s1: String, s2: String, joiner: String) -> String {
+func join(s1: String, s2: String, joiner: String) -> String
+{
     return s1 + joiner + s2
 }
 
@@ -41,17 +42,17 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
         // create a new scene
         let scene = SCNScene()
         
-        setupEnvironment( scene );
+        setupEnvironment( scene )
         
-        setupScene( scene );
+        setupScene( scene )
         
         
         // Make the camera look at the scene
         let lookAt = SCNNode()
         lookAt.position = SCNVector3( x: 0, y: 0, z: 0 )
-        let lookAtConstraint = SCNLookAtConstraint(target: lookAt);
-        lookAtConstraint.gimbalLockEnabled = true;
-        cameraNode.constraints = [lookAtConstraint];
+        let lookAtConstraint = SCNLookAtConstraint(target: lookAt)
+        lookAtConstraint.gimbalLockEnabled = true
+        cameraNode.constraints = [lookAtConstraint]
 
         // retrieve the SCNView
         let scnView = self.view as SCNView
@@ -59,17 +60,17 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
         // set the scene to the view
         scnView.scene = scene
         
-        scnView.scene.physicsWorld.speed = 3;
-        scnView.scene.physicsWorld.contactDelegate = self;
-        scnView.jitteringEnabled = true;
+        scnView.scene.physicsWorld.speed = 3
+        scnView.scene.physicsWorld.contactDelegate = self
+        scnView.jitteringEnabled = true
         
         // show statistics such as fps and timing information
 //        scnView.showsStatistics = true
         
         // configure the view
         scnView.backgroundColor = UIColor.blackColor()
-        scnView.delegate = self;
-        scnView.play(nil);
+        scnView.delegate = self
+        scnView.play(nil)
         
         // add a tap gesture recognizer
         let tapGesture = UITapGestureRecognizer(target: self, action: "handleTap:")
@@ -113,14 +114,14 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
     {
         // Create a plane
         createFloor( scene )
-        createCoinFloor( scene, x:0, y: 2.9, z:-2.5, width : 2, length : 5 );
-        createCoinFloor( scene, x:2, y: 1.9, z:-2.5, width : 2, length : 5 );
+        createCoinFloor( scene, x:0, y: 2.9, z:-2.5, width : 2, length : 5 )
+        createCoinFloor( scene, x:2, y: 1.9, z:-2.5, width : 2, length : 5 )
         
         pusher1 = createPusher( scene, x: -0.5, y: 3, z:-2.5, length:5 )
         pusher2 = createPusher( scene, x:  1.5, y: 2, z:-2.5, length:5 )
-        coinGuard1 = createCoinGuard( scene, x: 0, y: 3.5, z: -2.5, height: 1, color: UIColor.whiteColor() );
-        coinGuard2 = createCoinGuard( scene, x: 2, y: 2.5, z: -2.5, height: 0.5, color: UIColor.whiteColor() );
-        coinRestrict = createCoinGuard( scene, x: 0.2, y: 3.9, z: -2.5, height:0.6, color: UIColor.clearColor() ) //( white: 1, alpha: 0.2) );
+        coinGuard1 = createCoinGuard( scene, x: 0, y: 3.5, z: -2.5, height: 1, color: UIColor.whiteColor() )
+        coinGuard2 = createCoinGuard( scene, x: 2, y: 2.5, z: -2.5, height: 0.5, color: UIColor.whiteColor() )
+        coinRestrict = createCoinGuard( scene, x: 0.2, y: 3.9, z: -2.5, height:0.6, color: UIColor.clearColor() )
         sideWall1 = createSideWall( scene, x: 0, y: 0, z: -2.52, width:5, height:4.5 )
         sideWall2 = createSideWall( scene, x: 0, y: 0, z: 2.52, width:5, height:4.5 )
         
@@ -133,12 +134,11 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
         var geom = SCNFloor()
         geom.reflectivity = 0
         
-        let floorNode = SCNNode( geometry: geom );
-        scene.rootNode.addChildNode(floorNode);
+        let floorNode = SCNNode( geometry: geom )
+        scene.rootNode.addChildNode(floorNode)
         
-        var physBody = SCNPhysicsShape(geometry: floorNode.geometry, options: nil)
-        floorNode.physicsBody = SCNPhysicsBody(type: .Static, shape: physBody)
-        floorNode.physicsBody.friction = 4;
+        floorNode.physicsBody = SCNPhysicsBody.staticBody()
+        floorNode.physicsBody.friction = 4
         floorNode.name = "Floor"
         
         // create and configure a material
@@ -152,10 +152,10 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
     func createCoinFloor( scene: SCNScene, x: Float, y: Float, z: Float, width: Float, length : Float ) -> SCNNode
     {
         var node = createBlock( x, y: y, z: z, width: width, height: 0.1, length: length, color: UIColor.whiteColor() )
-        scene.rootNode.addChildNode(node);
+        scene.rootNode.addChildNode(node)
         
         node.physicsBody = SCNPhysicsBody.staticBody()
-        node.physicsBody.friction = 4;
+        node.physicsBody.friction = 4
         
         return node
     }
@@ -165,7 +165,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
         var node = createBlock( x, y: y, z: z, width: 1, height: 0.5, length: length, color: UIColor.grayColor() )
         node.physicsBody = SCNPhysicsBody.kinematicBody()
         node.physicsBody.friction = 1
-        scene.rootNode.addChildNode(node);
+        scene.rootNode.addChildNode(node)
 
         return node
     }
@@ -197,7 +197,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
         cylinder.radialSegmentCount = 5
         
         var pin = SCNNode( geometry: cylinder )
-        pin.position = SCNVector3( x: 0.2, y: 4, z: 0 );
+        pin.position = SCNVector3( x: 0.2, y: 4, z: 0 )
         pin.rotation = SCNVector4( x: 0, y: 0, z: 1, w: degToRad(90))
         
         pin.physicsBody = SCNPhysicsBody.staticBody()
@@ -248,7 +248,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
     
     func addCoin( scene : SCNScene )
     {
-        let val = (Float(arc4random()) / 0x100000000);
+        let val = (Float(arc4random()) / 0x100000000)
 
         // Add a little randomness so it doesn't quite fall in the center (otherwise it sticks on the pin
         var z :Float = 0.05
@@ -263,12 +263,12 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
         cylinder.radialSegmentCount = 10
         
         coin.geometry = cylinder
-        coin.position = SCNVector3( x: 0.15, y: 5, z: z );
+        coin.position = SCNVector3( x: 0.15, y: 5, z: z )
         coin.rotation = SCNVector4( x: 0, y: 0, z: 1, w: degToRad(90))
         scene.rootNode.addChildNode(coin)
         
         var physBody = SCNPhysicsShape(geometry: coin.geometry, options: nil)
-        coin.physicsBody = SCNPhysicsBody.dynamicBody() //(type: .Dynamic, shape: physBody)
+        coin.physicsBody = SCNPhysicsBody.dynamicBody()
         coin.physicsBody.mass = 5
         coin.physicsBody.friction = 0.7
         coin.physicsBody.restitution = 0.2
@@ -314,16 +314,16 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
     {
         if ( gestureRecognizer.state == UIGestureRecognizerState.Began )
         {
-            self.lastX = Float(gestureRecognizer.locationInView(self.view).x);
+            self.lastX = Float(gestureRecognizer.locationInView(self.view).x)
         }
 
-        let currX = Float(gestureRecognizer.locationInView(self.view).x);
+        let currX = Float(gestureRecognizer.locationInView(self.view).x)
         
         let dx = currX - lastX
-        angle += dx;
+        angle += dx
         
-        var newX : Float = 8 * sin(degToRad(angle));
-        var newZ : Float = 8 * cos(degToRad(angle));
+        var newX : Float = 8 * sin(degToRad(angle))
+        var newZ : Float = 8 * cos(degToRad(angle))
         
         cameraNode.position = SCNVector3( x:newX, y:6, z:newZ )
         self.lastX = currX

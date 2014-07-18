@@ -25,6 +25,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A1B4D65019793A0300E8463C /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = SOURCE_ROOT; };
 		A1E1DC3119657B6C008B6BBC /* CoinPush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinPush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E1DC3519657B6C008B6BBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1E1DC3619657B6C008B6BBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +81,7 @@
 				A1E1DC3A19657B6C008B6BBC /* Main.storyboard */,
 				A1E1DC3D19657B6C008B6BBC /* Images.xcassets */,
 				A1E1DC3419657B6C008B6BBC /* Supporting Files */,
+				A1B4D65019793A0300E8463C /* README.markdown */,
 			);
 			path = CoinPush;
 			sourceTree = "<group>";

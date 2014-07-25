@@ -26,6 +26,7 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
 {
     let cameraNode = SCNNode()
     var lastX : Float = 0
+    var lastY : Float = 0
     var angle : Float = 0
 
     var pusher1 : SCNNode!
@@ -35,6 +36,8 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
     var coinRestrict : SCNNode!
     var sideWall1 : SCNNode!
     var sideWall2 : SCNNode!
+
+    var lookAt : SCNNode!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,19 +51,19 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
         
         
         // Make the camera look at the scene
-        let lookAt = SCNNode()
+        lookAt = SCNNode()
         lookAt.position = SCNVector3( x: 0, y: 0, z: 0 )
         let lookAtConstraint = SCNLookAtConstraint(target: lookAt)
         lookAtConstraint.gimbalLockEnabled = true
         cameraNode.constraints = [lookAtConstraint]
-
+    
         // retrieve the SCNView
         let scnView = self.view as SCNView
         
         // set the scene to the view
         scnView.scene = scene
         
-        scnView.scene.physicsWorld.speed = 3
+        scnView.scene.physicsWorld.speed = 4
         scnView.scene.physicsWorld.contactDelegate = self
         scnView.jitteringEnabled = true
         
@@ -81,6 +84,8 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
         // Start the pushers
         animatePusher( pusher1, minX : -0.5, maxX : 0.5 )
         animatePusher( pusher2, minX : 1.5, maxX : 2.5 )
+        
+        angle = 90;
     }
     
     
@@ -91,14 +96,19 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
         scene.rootNode.addChildNode(cameraNode)
         
         // place the camera
-        cameraNode.position = SCNVector3(x: 2, y: 6, z: 8)
-        
+        cameraNode.position = SCNVector3(x:8, y: 6, z:-0 )
         
         // create and add a light to the scene
         let lightNode = SCNNode()
         lightNode.light = SCNLight()
-        lightNode.light.type = SCNLightTypeOmni
-        lightNode.position = SCNVector3(x: 0, y: 10, z: 10)
+        lightNode.light.type = SCNLightTypeOmni  // SCNLightTypeSpot
+        lightNode.position = SCNVector3(x: 1, y: 10, z: 0)
+        lightNode.light.color = UIColor( white:1, alpha:1.0)
+        lightNode.light.castsShadow = true
+        lightNode.light.shadowColor = UIColor.blackColor()
+        lightNode.light.shadowRadius = 10.0
+//        lightNode.transform = SCNMatrix4MakeRotation( degToRad(180), 0, 0, 1)
+
         scene.rootNode.addChildNode(lightNode)
         
         // create and add an ambient light to the scene
@@ -114,15 +124,17 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
     {
         // Create a plane
         createFloor( scene )
-        createCoinFloor( scene, x:0, y: 2.9, z:-2.5, width : 2, length : 5 )
-        createCoinFloor( scene, x:2, y: 1.9, z:-2.5, width : 2, length : 5 )
+        createCoinFloor( scene, x:0, y: 0.1, z:-2.5, width : 2, height: 2.9, length : 5 )
+        createCoinFloor( scene, x:2, y: 0.1, z:-2.5, width : 2, height: 1.9, length : 5 )
+        createCoinFloor( scene, x:-1.9, y: 3.5, z:-2.5, width : 2, height:2, length : 5 )
+        createCoinFloor( scene, x:-1.9, y: 0.1, z:-2.5, width : 1.9, height:3.5, length : 5 )
         
         pusher1 = createPusher( scene, x: -0.5, y: 3, z:-2.5, length:5 )
         pusher2 = createPusher( scene, x:  1.5, y: 2, z:-2.5, length:5 )
-        coinGuard1 = createCoinGuard( scene, x: 0, y: 3.5, z: -2.5, height: 1, color: UIColor.whiteColor() )
-        coinGuard2 = createCoinGuard( scene, x: 2, y: 2.5, z: -2.5, height: 0.5, color: UIColor.whiteColor() )
-        coinRestrict = createCoinGuard( scene, x: 0.2, y: 3.9, z: -2.5, height:0.6, color: UIColor.clearColor() )
-        sideWall1 = createSideWall( scene, x: 0, y: 0, z: -2.52, width:5, height:4.5 )
+//        coinGuard1 = createCoinGuard( scene, x: 0, y: 3.5, z: -2.5, height: 1, color: UIColor.whiteColor() )
+//        coinGuard2 = createCoinGuard( scene, x: 2, y: 2.5, z: -2.5, height: 0.5, color: UIColor.whiteColor() )
+        coinRestrict = createCoinGuard( scene, x: 0.3, y: 3.9, z: -2.5, height:4, color: UIColor( red: 1, green: 0, blue: 0, alpha: 0.3 ) )
+        sideWall1 = createSideWall( scene, x: 0, y: 0, z: -2.6, width:5, height:4.5 )
         sideWall2 = createSideWall( scene, x: 0, y: 0, z: 2.52, width:5, height:4.5 )
         
         createPins( scene )
@@ -143,15 +155,21 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
         
         // create and configure a material
         let material = SCNMaterial()
-        material.diffuse.contents = UIColor.redColor()
+        material.diffuse.contents = "wood2.png"
+        material.diffuse.contentsTransform = SCNMatrix4Rotate(SCNMatrix4MakeScale(20, 20, 0.1), degToRad(90), 0, 0, 1)
+        material.locksAmbientWithDiffuse = true
+        material.diffuse.wrapS = SCNWrapMode.Repeat
+        material.diffuse.wrapT = SCNWrapMode.Repeat
+        material.diffuse.mipFilter = SCNFilterMode.Linear
+
         
         // set the material to the 3d object geometry
         floorNode.geometry.firstMaterial = material
     }
     
-    func createCoinFloor( scene: SCNScene, x: Float, y: Float, z: Float, width: Float, length : Float ) -> SCNNode
+    func createCoinFloor( scene: SCNScene, x: Float, y: Float, z: Float, width: Float, height: Float, length : Float ) -> SCNNode
     {
-        var node = createBlock( x, y: y, z: z, width: width, height: 0.1, length: length, color: UIColor.whiteColor() )
+        var node = createBlock( x, y: y, z: z, width: width, height: height, length: length, color: UIColor.whiteColor() )
         scene.rootNode.addChildNode(node)
         
         node.physicsBody = SCNPhysicsBody.staticBody()
@@ -162,9 +180,13 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
     
     func createPusher( scene : SCNScene, x : Float, y : Float, z: Float, length: Float ) -> SCNNode
     {
-        var node = createBlock( x, y: y, z: z, width: 1, height: 0.5, length: length, color: UIColor.grayColor() )
+        var node = createBlock( x, y: y, z: z+0.01, width: 1, height: 0.5, length: length - 0.02, color: UIColor.grayColor() )
         node.physicsBody = SCNPhysicsBody.kinematicBody()
         node.physicsBody.friction = 1
+        
+        node.geometry.firstMaterial.shininess = 1.0;
+        node.geometry.firstMaterial.shininess = 1.0;
+        node.geometry.firstMaterial.specular.contents = UIColor.whiteColor()
         scene.rootNode.addChildNode(node)
 
         return node
@@ -312,24 +334,37 @@ class GameViewController: UIViewController, SCNSceneRendererDelegate, SCNPhysics
     
     func handlePan(gestureRecognizer: UIGestureRecognizer)
     {
+        var point = gestureRecognizer.locationInView(self.view)
         if ( gestureRecognizer.state == UIGestureRecognizerState.Began )
         {
-            self.lastX = Float(gestureRecognizer.locationInView(self.view).x)
+            self.lastX = Float(point.x)
+            self.lastY = Float(point.y)
         }
 
-        let currX = Float(gestureRecognizer.locationInView(self.view).x)
+        let currX = Float(point.x)
+        let currY = Float(point.y)
+        if ( gestureRecognizer.numberOfTouches() == 2 )
+        {
+            let dy = currY - lastY
+            self.lookAt.position.y += -dy
+        }
         
         let dx = currX - lastX
+
         angle += dx
         
+        updateViewPosition()
+        self.lastX = currX
+        self.lastY = currY
+    }
+    
+    func updateViewPosition()
+    {
         var newX : Float = 8 * sin(degToRad(angle))
         var newZ : Float = 8 * cos(degToRad(angle))
         
+        NSLog( "Angle - \(angle), newX - \(newX), newZ - \(newZ)" )
         cameraNode.position = SCNVector3( x:newX, y:6, z:newZ )
-        self.lastX = currX
-        // retrieve the SCNView
-        let scnView = self.view as SCNView
-        
     }
     
     override func shouldAutorotate() -> Bool {

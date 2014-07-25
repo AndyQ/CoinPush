@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1B877BA197A8BED00E34CCA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B877B9197A8BED00E34CCA /* Images.xcassets */; };
 		A1E1DC3719657B6C008B6BBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1DC3619657B6C008B6BBC /* AppDelegate.swift */; };
 		A1E1DC3919657B6C008B6BBC /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1DC3819657B6C008B6BBC /* GameViewController.swift */; };
 		A1E1DC3C19657B6C008B6BBC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1E1DC3A19657B6C008B6BBC /* Main.storyboard */; };
-		A1E1DC3E19657B6C008B6BBC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1E1DC3D19657B6C008B6BBC /* Images.xcassets */; };
 		A1E1DC4A19657B6C008B6BBC /* CoinPushTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E1DC4919657B6C008B6BBC /* CoinPushTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,12 +27,12 @@
 /* Begin PBXFileReference section */
 		A1B4D65019793A0300E8463C /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = SOURCE_ROOT; };
 		A1B4D65119793B1400E8463C /* LICENCE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENCE; sourceTree = SOURCE_ROOT; };
+		A1B877B9197A8BED00E34CCA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A1E1DC3119657B6C008B6BBC /* CoinPush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinPush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E1DC3519657B6C008B6BBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1E1DC3619657B6C008B6BBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1E1DC3819657B6C008B6BBC /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		A1E1DC3B19657B6C008B6BBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A1E1DC3D19657B6C008B6BBC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A1E1DC4319657B6C008B6BBC /* CoinPushTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoinPushTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E1DC4819657B6C008B6BBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A1E1DC4919657B6C008B6BBC /* CoinPushTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinPushTests.swift; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 				A1E1DC3619657B6C008B6BBC /* AppDelegate.swift */,
 				A1E1DC3819657B6C008B6BBC /* GameViewController.swift */,
 				A1E1DC3A19657B6C008B6BBC /* Main.storyboard */,
-				A1E1DC3D19657B6C008B6BBC /* Images.xcassets */,
+				A1B877B9197A8BED00E34CCA /* Images.xcassets */,
 				A1E1DC3419657B6C008B6BBC /* Supporting Files */,
 				A1B4D65019793A0300E8463C /* README.markdown */,
 				A1B4D65119793B1400E8463C /* LICENCE */,
@@ -194,7 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1E1DC3C19657B6C008B6BBC /* Main.storyboard in Resources */,
-				A1E1DC3E19657B6C008B6BBC /* Images.xcassets in Resources */,
+				A1B877BA197A8BED00E34CCA /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,16 +1,16 @@
-#CoinPush#
+# CoinPush
 
 CoinPush is a simple Coin Pusher demo written in Swift and using SceneKit.
 
-It requires iOS 8 (currently in Beta) and XCode 6.
+It requires iOS 11, Swift 4.2 and XCode 10
 
 CoinPush is released under the MIT licence.
 
-##License##
+## License
 
 (MIT Licensed)
 
-Copyright (c) 2014 Andy Qua
+Copyright (c) 2018 Andy Qua
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
